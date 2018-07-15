@@ -1,15 +1,19 @@
 import numpy as np
 import sklearn as sk
+import csv
 
-sampleSize1 = 70
-sampleSize2 = 50
-dataDim = 200
+csvFile = open('clean1.tsv', 'rb')
+next(csvFile, None)
+dataFile = csv.reader(csvFile, delimiter='\t') 
+dataDim = 166
+sampleSize = 80
+group = [] 
+data = []
 
-mean1 = np.random.rand(dataDim, 1)*200 + 100  
-mean2 = np.random.rand(dataDim, 1)*200 + 300
-covar1 = sk.datasets.make_spd_matrix(dataDim)
-covar2 = covar1 + np.diag(np.random.rand(dataDim, 1))
-
-group1 = np.random.multivariate_normal(mean1, covar1)
-group2 = np.random.multivariate_normal(mean2, covar2)
-
+for row in dataFile:
+    data.append(map(float, row[2:-1]))
+    group.append(int(row[-1]))     
+secondGroupStart = group.index(0)
+secondGroupEnd = secondGroupStart + sampleSize 
+data = np.concatenate((data[0:sampleSize][:], data[secondGroupStart:secondGroupEnd][:]), axis=0)
+group = sampleSize*[1] + sampleSize*[0]
