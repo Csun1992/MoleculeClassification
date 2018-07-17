@@ -24,23 +24,18 @@ def uEye(covar, dataDim):
 def splitTrainDat(train, groupNum):
     group1 = [] 
     group2 = [] 
-    group3 = [] 
     for i in map(int, train):
         if groupNum[i] == 1:
             group1.append(i)
-        elif groupNum[i] == 2:
-            group2.append(i)
         else: 
-            group3.append(i)
-    return (group1, group2, group3)
+            group2.append(i)
+    return (group1, group2)
     
 
-def classify(dist1, dist2, dist3):
+def classify(dist1, dist2):
     groupNum = 1
-    if dist2 <= min(dist1, dist3):
+    if dist2 <= dist1:
         groupNum = 2
-    if dist3 <= min(dist1, dist2):
-        groupNum = 3
     return groupNum
 
 def qdf(data, sampleCov, sampleMean):
