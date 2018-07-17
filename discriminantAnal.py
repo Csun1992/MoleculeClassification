@@ -38,8 +38,10 @@ def classify(dist1, dist2):
         groupNum = 2
     return groupNum
 
-def qdf(data, sampleCov, sampleMean):
-    distance = math.log(np.linalg.det(np.matrix(sampleCov))) + \
-        (data-sampleMean).T.dot(np.linalg.inv(np.matrix(sampleCov))).dot(data-sampleMean)
-    return distance
+def ldf(data, pooledCovar, sampleMean1, sampleMean2):
+    commonTerm = (sampleMean1-sampleMean2).T.np.linalg.inv(pooledCovar)
+    firstTerm = commonTerm.dot(data)
+    secondTerm = commonTerm.dot(sampleMean1+sampleMean2)
+    result = firstTerm - 0.5*secondTerm
+    return result 
 

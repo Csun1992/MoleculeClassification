@@ -25,7 +25,7 @@ groupNum = sampleSize*[1] + sampleSize*[0]
 fold = 5
 testSize = int(poolSampleSize/fold)
 trainSize = poolSampleSize - testSize 
-reducedDimStart = trainSize/2 - 10 
+reducedDimStart = trainSize - 2 
 
 aggErrorRateHaff = []
 aggErrorRatePaper = []
